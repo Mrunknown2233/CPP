@@ -127,6 +127,8 @@ void main()
 	s1.setstring();
 	s1.getstring();
 
+	s2.getstring();	
+
 
 	len=s1.length();
 	cout<<"\nThe length of the string is "<<len;
