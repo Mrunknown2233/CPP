@@ -9,17 +9,53 @@ class String
 {
 	private:
 		char *str;
+		int totalSize;
+		enum whichConstructor
+		{
+			First,Second
+		};
+		whichConstructor which;
+		String *resize(int times)
+		{
+			int newsize=times*this->capacity();
+			char *str2=(char *) malloc(newsize+1);
+			if(str2==NULL)
+			{
+				cout<<"\nMemory Insufficeint ";
+				exit(10);
+			}
+
+
+				//copying the older str in new one
+				int i = 0;
+
+
+				for(i = 0; i<this->length();i++)
+					*(str2+i)=*(this->str + i);
+				str2[this->length()]='\0';
+				free(this->str);
+				this->str=str2;
+				totalSize=newsize;
+				cout<<"\nBhai resize hogaya ";
+				return this;
+
+
+		}
+
 	public:
 		/*====Constructors====*/
 		String()
 		{
 			str=(char *) malloc(sizeof(char)*16);
-			if(str==0)
+
+
+			if(str==NULL)
 			{
 				cout<<"\nMemory allocation failed ";
 				exit(10);
 			}
-			
+
+			totalSize=16;
 		}
 		String(char *s)
 		{
@@ -28,20 +64,22 @@ class String
 				len++;
 
 			str=(char*)malloc(((sizeof(char)*len)+16));
-			if(str==0)
+			if(str==NULL)
 			{
 				cout<<"\nMemory allocation failed ";
 				exit(10);
 			}
 
+
 			for(int i=0;i<len;i++)
 				*(str+i)= *(s+i);
 			*(str+i)='\0';
+			totalSize=length()+16;
 
 		}
 		~String()
 		{
-			cout<<"\nDeallocating the space for the object ";
+
 			free(str);
 		}
 	      /*====Methods====*/
@@ -105,12 +143,70 @@ class String
 			  exapnded inline */
 			  for(i=0;i<len;i++)
 			  {
-				
+
 				if(*(str+i)>='a' && *(str+i)<='z')
 					*(str+i)= *(str+i)-32;
 			  }
 
 		}
+
+		int capacity()
+		{
+			return totalSize;
+		}
+
+		String substring(int startIndex)
+		{
+			return str+startIndex;
+		}
+		String substring(int startIndex,int endIndex)
+		{
+			if(endIndex>length())
+			{
+				cout<<"\nInvalid Index";
+				return NULL;
+			}
+			else
+			{
+				String s;
+				int i=0;
+				int subLength=(endIndex-startIndex);
+				cout<<"\nSubIenght = "<<subLength;
+				cout<<"\nStartIndex= "<<startIndex;
+				cout<<"\nEndIndex = "<<endIndex;
+				for(i=startIndex;i<=endIndex;i++)
+				{
+					cout<<"\n"<<i;
+					s.str[i-startIndex]=str[i];
+
+				    //	cout<<"\n"<<s.str+i;
+				}
+				//add 1 if u want endIndex should be inclusive
+				s.str[endIndex-startIndex]='\0';
+				cout<<"\n"<<s.str;
+				return s.str;
+			}
+
+		}
+		String *append(String anotherString)
+		{
+			if((capacity()-length())<=anotherString.length())
+				this->resize(2);
+			int currentLen=this->length();
+			for(int i = 0; i<anotherString.length();i++)
+				this->str[currentLen+i]=anotherString.str[i];
+			this->str[currentLen+anotherString.length()]='\0';
+
+			return this;
+
+
+
+
+
+
+		}
+
+
 
 
 
@@ -120,16 +216,17 @@ class String
 void main()
 {
 
+
 	clrscr();
-	String s1,s2("Soumya");
+	String s1,s2("ABCDEFGHIJ"),s3;
 	int len,index;
 	char ch;
+
 	s1.setstring();
 	s1.getstring();
+//	s2.getstring();
 
-	s2.getstring();	
-
-
+	/*
 	len=s1.length();
 	cout<<"\nThe length of the string is "<<len;
 
@@ -147,6 +244,42 @@ void main()
 
 
 	s1.toUpperCase();
+	s1.getstring();
+	*/
+    //  cout<<s1.capacity();
+    // 	cout<<s2.capacity();
+    /*
+	int startIndex,endIndex;
+	cout<<"\nEnter startIndex: ";
+	cin>>startIndex;
+	if(startIndex<0 || startIndex>s1.length())
+		cout<<"\nInvalid index ";
+	else
+	{
+		s3=s1.substring(startIndex);
+		s3.getstring();
+	}
+	if(startIndex<0|| startIndex>s2.length())
+		cout<<"\nIndex invalid";
+	else
+	{
+	   //	s3=s2.substring(startIndex);
+	     //	s3.getstring();
+	}
+	cout<<"\nEnter the startIndex and the EndIndex";
+	cin>>startIndex>>endIndex;
+	if(startIndex<0||endIndex<0||startIndex>endIndex)
+		cout<<"\nInvalid Index";
+
+	else
+	{
+		s3=s1.substring(startIndex,endIndex);
+		s3.getstring();
+	}
+	*/
+	cout<<"\nOld capacity : "<<s1.capacity();
+	s1.append(s2);
+	cout<<"\nnew capacity "<<s1.capacity();
 	s1.getstring();
 	getch();
 }

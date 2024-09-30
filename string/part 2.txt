@@ -1,15 +1,17 @@
 length() => 2
 int capacity() => 18 (total available space) mtlb 16 + len of the string return karna chaiye
 
-String *substring(int startIndex) will return the string present from the strat index up until null
+String substring(int startIndex) will return the string present from the start index up until null.
+				
 
-String *substring(int startIndex, int endIndex) => startIndex -> endIndex-1 will return the string present from the strat index up until 						endIndex
+String substring(int startIndex, int endIndex) => startIndex -> endIndex-1 will return the string present from the strat index up until 						endIndex.
 
 String *append(String anotherString) -> it will append in the current object and return the same string
 					agar another string is exceeding the provided capacity then
 					a new obj for Sting with the current capacity double from the previous one
 					in this the old string will be copied first then another string would be appended		
 					the old object would get deleted(free) to take care of the memory leak.
+					will give this pointer iggg
 String *append(int num)Number lega and strig meh append karega upar ka condition bhi check hoga ki space hai ki nahi
 String *append(float data)Number lega and strig meh append karega upar ka condition bhi check hoga ki space hai ki nahi
 
