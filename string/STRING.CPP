@@ -155,9 +155,21 @@ class String
 			return totalSize;
 		}
 
-		String substring(int startIndex)
+			String substring(int startIndex)
 		{
-			return str+startIndex;
+			char *str2;
+			int len=(this->length()-startIndex+1);
+			str2=(char*) malloc(len);
+			int i,j=0;
+			len=length();
+			for(i=startIndex;i<len;i++)
+				str2[j++]=this->str[i];
+			str2[j]='\0';
+			cout<<"\nStr2 : "<<str2;
+			String s1(str2);
+			free(str2);
+			return s1;
+
 		}
 		String substring(int startIndex,int endIndex)
 		{
@@ -168,23 +180,28 @@ class String
 			}
 			else
 			{
-				String s;
-				int i=0;
+				int i=0,j;
 				int subLength=(endIndex-startIndex);
+				char *str2=(char*) malloc(subLength+1);
+				/*
 				cout<<"\nSubIenght = "<<subLength;
 				cout<<"\nStartIndex= "<<startIndex;
 				cout<<"\nEndIndex = "<<endIndex;
+				//cout<<"\nStr = "<<str;
+				*/
 				for(i=startIndex;i<=endIndex;i++)
 				{
-					cout<<"\n"<<i;
-					s.str[i-startIndex]=str[i];
+					str2[i-startIndex]=this->str[i];
 
 				    //	cout<<"\n"<<s.str+i;
 				}
 				//add 1 if u want endIndex should be inclusive
-				s.str[endIndex-startIndex]='\0';
-				cout<<"\n"<<s.str;
-				return s.str;
+				str2[endIndex-startIndex]='\0';
+			      //	cout<<"\nStr 2 :"<<str2;
+				String s1(str2);
+				free(str2);
+
+				return s1;
 			}
 
 		}
