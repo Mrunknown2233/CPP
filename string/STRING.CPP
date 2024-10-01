@@ -220,6 +220,136 @@ class String
 
 		}
 
+	char *intToChar(int num)
+	{
+
+		if(num<0)
+			num = -num;
+		char *str2= (char*) malloc(100);
+		int i;
+
+		 for(i=0;num>0;i++,num/=10)
+			*(str2+i)='0'+(num%10);
+		 str2[i] = '\0';
+	       //	 cout<<"==\n"<<str2;
+		  char temp;
+		 //the no in str2 are in rev order
+		 //thereofre reversing it.
+		//i acting as len for str2
+
+		for(int j=0;j<(i)/2;j++)
+		{
+			temp=*(str2+j);
+			*(str2+j)= *(str2+i-1-j);
+			*(str2+i-1-j)=temp;
+		 }
+
+
+		 return str2;
+	}
+	String * append(int num)
+	{
+
+		if(num<0)
+			num = -num;
+		char *str2= (char*) malloc(100);
+		str2=intToChar(num);
+		/*
+		int i;
+
+		 for(i=0;num>0;i++,num/=10)
+			*(str2+i)='0'+(num%10);
+		 str2[i] = '\0';
+		  char temp;
+		 //the no in str2 are in rev order
+		 //thereofre reversing it.
+		//i acting as len for str2
+
+		for(int j=0;j<(i-1)/2;j++)
+		{
+			temp=*(str2+j);
+			*(str2+j)= *(str2+i-1-j);
+			*(str2+i-1-j)=temp;
+		 }
+
+
+		 cout<<"\nOg string: "<<str2;
+		 */
+		 int capacity=this->capacity();
+		 String t(str2);
+		 free(str2);
+
+		 this->append(t);
+		return this;
+
+	 }
+	 String *append(float num,int radixPoint)
+	 {
+
+		int integerPart;
+		float fractionalPart;
+
+		integerPart=(int)num;
+	      //	cout<<integerPart;
+
+		char *str2=(char*) malloc(32767+1);
+		str2=intToChar(integerPart);
+
+		int len=0;
+		while(str2[len]!='\0')
+			len++;
+		if(radixPoint>0)
+		{
+			str2[len++]='.';
+			str2[len]='\0';
+
+		    //	cout<<"\n=="<<str2;
+
+			fractionalPart=(num-integerPart);
+		    //	cout<<"\n"<<fractionalPart;
+
+		      //	integerPart=fractionalPart*10;
+		       //	cout<<"\n=="<<integerPart;
+
+		for(int i=0;i<radixPoint;i++)
+		{
+			fractionalPart*=10;
+			integerPart=fractionalPart;
+			str2[i+len]='0'+integerPart;
+			fractionalPart-=integerPart;
+
+		}
+		str2[i+len]='\0';
+		cout<<"\nNew==="<<str2;
+		}
+		String temp(str2);
+		this->append(temp);
+	      return this;
+	 }
+	 String *insert(String s,int index)
+	 {
+		int len=this->length();
+		int lenForNewString=s.length();
+
+		cout<<"\nLen= "<<len<<"\nLen2 = "<<lenForNewString;
+
+		if(lenForNewString>=(this->capacity()-len))
+			resize(2);
+		//for shifting
+
+		for(int i=len-1;i>=index;i--)
+			this->str[i+lenForNewString] = this->str[i];
+		this->str[len+lenForNewString]='\0';
+
+		//inserting
+		for(i=0;i<lenForNewString;i++)
+			this->str[i+index]=s.str[i];
+		cout<<"\nNew string = "<<this->str;
+
+		return this;
+	 }
+
+
 
 
 
@@ -229,75 +359,77 @@ class String
 
 void main()
 {
+    clrscr();
 
 
-	clrscr();
-	String s1,s2("ABCDEFGHIJ"),s3;
-	int len,index;
-	char ch;
-
-	s1.setstring();
-	s1.getstring();
-//	s2.getstring();
-
-	/*
-	len=s1.length();
-	cout<<"\nThe length of the string is "<<len;
+    String s1;
+    String s2("ABCDEFGHI");
 
 
-	cout<<"\nEnter the index ";
-	cin>>index;
-	ch=s1.charAt(index);
-	if(ch)
-		cout<<"\nThe char at index("<<index<<") is "<<ch;
-	else
-		cout<<"\nInvalid position";
-
-	s1.toLowerCase();
-	s1.getstring();
+    s1.setstring();
+    s1.getstring();
 
 
-	s1.toUpperCase();
-	s1.getstring();
-	*/
-    //  cout<<s1.capacity();
-    // 	cout<<s2.capacity();
+    cout << "\nLength of s1: " << s1.length() << endl;
 
-	int startIndex,endIndex;
 
-	cout<<"\nEnter startIndex: ";
-	cin>>startIndex;
-	if(startIndex<0 || startIndex>s1.length())
-		cout<<"\nInvalid index ";
-	else
-	{
-		s3=s1.substring(startIndex);
-		s3.getstring();
-	}
-	if(startIndex<0|| startIndex>s2.length())
-		cout<<"\nIndex invalid";
-	else
-	{
-	   //	s3=s2.substring(startIndex);
-	     //	s3.getstring();
-	}
+    int index;
+    cout << "\nEnter index to get character: ";
+    cin >> index;
+    char character = s1.charAt(index);
+    cout << "\nCharacter at index " << index << ": " << (character ? character : ' ') << endl;
 
-	cout<<"\nEnter the startIndex and the EndIndex";
-	cin>>startIndex>>endIndex;
-	if(startIndex<0||endIndex<0||startIndex>endIndex)
-		cout<<"\nInvalid Index";
 
-	else
-	{
-		s3=s1.substring(startIndex,endIndex);
-		cout<<"\nHello";
-		s3.getstring();
-	}
-       /*
-	cout<<"\nOld capacity : "<<s1.capacity();
-	s1.append(s2);
-	cout<<"\nnew capacity "<<s1.capacity();
-	s1.getstring();
-	*/
-	getch();
+    s1.toLowerCase();
+    cout << "\nLowercase s1: ";
+    s1.getstring();
+
+    s1.toUpperCase();
+    cout << "\nUppercase s1: ";
+    s1.getstring();
+
+    // Test capacity
+    cout << "\nCapacity of s1: " << s1.capacity() << endl;
+    cout << "\nCapacity of s2: " << s2.capacity() << endl;
+
+    // Test substring
+    int startIndex, endIndex;
+    cout << "\nEnter start index for substring: ";
+    cin >> startIndex;
+    String sub1 = s1.substring(startIndex);
+    sub1.getstring();
+
+    cout << "\nEnter start and end index for substring: ";
+    cin >> startIndex >> endIndex;
+    String sub2 = s1.substring(startIndex, endIndex);
+    sub2.getstring();
+
+
+    cout << "\nAppending s2 to s1..." << endl;
+    s1.append(s2);
+    s1.getstring();
+
+
+    int num;
+    cout << "\nEnter number to append: ";
+    cin >> num;
+    s1.append(num);
+    s1.getstring();
+
+
+    float floatnum;
+    int radixPoint;
+    cout << "\nEnter float number to append: ";
+    cin >> floatnum;
+    cout << "\nEnter number of decimal places: ";
+    cin >> radixPoint;
+    s1.append(floatnum, radixPoint);
+    s1.getstring();
+
+    cout << "\nEnter index to insert s2 into s1: ";
+    cin >> index;
+    s1.insert(s2, index);
+    s1.getstring();
+
+    getch();
 }
