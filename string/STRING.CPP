@@ -207,6 +207,8 @@ class String
 		}
 		String *append(String anotherString)
 		{
+
+
 			if((capacity()-length())<=anotherString.length())
 				this->resize(2);
 			int currentLen=this->length();
@@ -215,11 +217,6 @@ class String
 			this->str[currentLen+anotherString.length()]='\0';
 
 			return this;
-
-
-
-
-
 
 		}
 
@@ -265,8 +262,9 @@ void main()
 	*/
     //  cout<<s1.capacity();
     // 	cout<<s2.capacity();
-    /*
+
 	int startIndex,endIndex;
+
 	cout<<"\nEnter startIndex: ";
 	cin>>startIndex;
 	if(startIndex<0 || startIndex>s1.length())
@@ -283,6 +281,7 @@ void main()
 	   //	s3=s2.substring(startIndex);
 	     //	s3.getstring();
 	}
+
 	cout<<"\nEnter the startIndex and the EndIndex";
 	cin>>startIndex>>endIndex;
 	if(startIndex<0||endIndex<0||startIndex>endIndex)
@@ -291,12 +290,14 @@ void main()
 	else
 	{
 		s3=s1.substring(startIndex,endIndex);
+		cout<<"\nHello";
 		s3.getstring();
 	}
-	*/
+       /*
 	cout<<"\nOld capacity : "<<s1.capacity();
 	s1.append(s2);
 	cout<<"\nnew capacity "<<s1.capacity();
 	s1.getstring();
+	*/
 	getch();
 }
