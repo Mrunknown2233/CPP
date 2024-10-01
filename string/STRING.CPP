@@ -155,9 +155,21 @@ class String
 			return totalSize;
 		}
 
-		String substring(int startIndex)
+			String substring(int startIndex)
 		{
-			return str+startIndex;
+			char *str2;
+			int len=(this->length()-startIndex+1);
+			str2=(char*) malloc(len);
+			int i,j=0;
+			len=length();
+			for(i=startIndex;i<len;i++)
+				str2[j++]=this->str[i];
+			str2[j]='\0';
+			cout<<"\nStr2 : "<<str2;
+			String s1(str2);
+			free(str2);
+			return s1;
+
 		}
 		String substring(int startIndex,int endIndex)
 		{
@@ -168,28 +180,35 @@ class String
 			}
 			else
 			{
-				String s;
-				int i=0;
+				int i=0,j;
 				int subLength=(endIndex-startIndex);
+				char *str2=(char*) malloc(subLength+1);
+				/*
 				cout<<"\nSubIenght = "<<subLength;
 				cout<<"\nStartIndex= "<<startIndex;
 				cout<<"\nEndIndex = "<<endIndex;
+				//cout<<"\nStr = "<<str;
+				*/
 				for(i=startIndex;i<=endIndex;i++)
 				{
-					cout<<"\n"<<i;
-					s.str[i-startIndex]=str[i];
+					str2[i-startIndex]=this->str[i];
 
 				    //	cout<<"\n"<<s.str+i;
 				}
 				//add 1 if u want endIndex should be inclusive
-				s.str[endIndex-startIndex]='\0';
-				cout<<"\n"<<s.str;
-				return s.str;
+				str2[endIndex-startIndex]='\0';
+			      //	cout<<"\nStr 2 :"<<str2;
+				String s1(str2);
+				free(str2);
+
+				return s1;
 			}
 
 		}
 		String *append(String anotherString)
 		{
+
+
 			if((capacity()-length())<=anotherString.length())
 				this->resize(2);
 			int currentLen=this->length();
@@ -198,11 +217,6 @@ class String
 			this->str[currentLen+anotherString.length()]='\0';
 
 			return this;
-
-
-
-
-
 
 		}
 
@@ -248,8 +262,9 @@ void main()
 	*/
     //  cout<<s1.capacity();
     // 	cout<<s2.capacity();
-    /*
+
 	int startIndex,endIndex;
+
 	cout<<"\nEnter startIndex: ";
 	cin>>startIndex;
 	if(startIndex<0 || startIndex>s1.length())
@@ -266,6 +281,7 @@ void main()
 	   //	s3=s2.substring(startIndex);
 	     //	s3.getstring();
 	}
+
 	cout<<"\nEnter the startIndex and the EndIndex";
 	cin>>startIndex>>endIndex;
 	if(startIndex<0||endIndex<0||startIndex>endIndex)
@@ -274,12 +290,14 @@ void main()
 	else
 	{
 		s3=s1.substring(startIndex,endIndex);
+		cout<<"\nHello";
 		s3.getstring();
 	}
-	*/
+       /*
 	cout<<"\nOld capacity : "<<s1.capacity();
 	s1.append(s2);
 	cout<<"\nnew capacity "<<s1.capacity();
 	s1.getstring();
+	*/
 	getch();
 }
