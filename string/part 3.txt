@@ -1,0 +1,4 @@
+int indexOf(char ch) ---> return the index of the given character after searching it.
+int indexOf(char ch,int index) ---> return the index of the given character after searching it from the given index.
+int indexOf(char *s) ---> return the starting index of the given string after searching it.
+int indexOf(char *s,int index) ---> return the starting index of the given string after searching it from the given index.

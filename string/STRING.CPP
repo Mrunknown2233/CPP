@@ -1,20 +1,18 @@
 #include <iostream.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 #define NULL 0
+#define NEG_INF -32768
 /*This program will only take input without whitespaces*/
 class String
 {
 	private:
 		char *str;
 		int totalSize;
-		enum whichConstructor
-		{
-			First,Second
-		};
-		whichConstructor which;
+
 		String *resize(int times)
 		{
 			int newsize=times*this->capacity();
@@ -41,6 +39,15 @@ class String
 
 
 		}
+		int  length(char *str)
+		{
+			int i=0;
+			while(*(str+i)!='\0')
+				i++;
+
+			return i;
+		}
+
 
 	public:
 		/*====Constructors====*/
@@ -87,7 +94,7 @@ class String
 		{
 
 			cout<<"\nEnter the string u want";
-			cin>>str;
+			gets(str);
 		}
 		void getstring()
 		{
@@ -210,7 +217,13 @@ class String
 
 
 			if((capacity()-length())<=anotherString.length())
-				this->resize(2);
+			{
+				cout<<"\nThe capacity of the string is insufficeint";
+				cout<<"\nEnter how many times u want to multiply the capacity";
+				int x;
+				cin>>x;
+				this->resize(x);
+			}
 			int currentLen=this->length();
 			for(int i = 0; i<anotherString.length();i++)
 				this->str[currentLen+i]=anotherString.str[i];
@@ -259,7 +272,7 @@ class String
 
 		 for(i=0;num>0;i++,num/=10)
 			*(str2+i)='0'+(num%10);
-		 str2[i] = '\0';
+		 s-tr2[i] = '\0';
 		  char temp;
 		 //the no in str2 are in rev order
 		 //thereofre reversing it.
@@ -275,7 +288,7 @@ class String
 
 		 cout<<"\nOg string: "<<str2;
 		 */
-		 int capacity=this->capacity();
+
 		 String t(str2);
 		 free(str2);
 
@@ -283,6 +296,7 @@ class String
 		return this;
 
 	 }
+	 /*Get the float one checked from sir */
 	 String *append(float num,int radixPoint)
 	 {
 
@@ -292,7 +306,12 @@ class String
 		integerPart=(int)num;
 	      //	cout<<integerPart;
 
-		char *str2=(char*) malloc(32767+1);
+		char *str2=(char*) malloc(32766+1);
+		if(str2==NULL)
+		{
+			cout<<"\nMemory allocation failed";
+			return NULL;
+		}
 		str2=intToChar(integerPart);
 
 		int len=0;
@@ -323,6 +342,7 @@ class String
 		cout<<"\nNew==="<<str2;
 		}
 		String temp(str2);
+		free(str2);
 		this->append(temp);
 	      return this;
 	 }
@@ -334,7 +354,13 @@ class String
 		cout<<"\nLen= "<<len<<"\nLen2 = "<<lenForNewString;
 
 		if(lenForNewString>=(this->capacity()-len))
-			resize(2);
+		{
+			int x;
+			cout<<"\nEnter the no of times u want to rezie the capacity";
+			cin>>x;
+			resize(x);
+		}
+
 		//for shifting
 
 		for(int i=len-1;i>=index;i--)
@@ -348,14 +374,78 @@ class String
 
 		return this;
 	 }
+		int indexOf(char key)
+		{
+			int i,len=length();
+			for(i=0;i<len;i++)
+			{
+				if(key==*(str+i))
+					return i;
+			}
+			return NEG_INF;
 
+		}
+		int cmpstr(char *str,char *str2)
+		{
+			int len1=length(str),len2=length(str2);
+			int len;
+			if(len1>len2)
+				len=len1;
+			else
+				len=len2;
+			for(int i =0;i<len;i++)
+			{
+					return str[i]-str2[i];
 
+			}
 
+			return 0;
+		}
+		int indexOf(char key,int index)
+		{
+			int i,len=length();
+			for(i=index;i<len;i++)
+			{
+				if(key==*(str+i))
+					return i;
+			}
+			return NEG_INF;
+		}
+		int indexOf(char *s)
+		{
+			int i,len=length(),len2=length(s);
+			for(i=0;i<len;i++)
+			{
+					int j=0;
+					while(j<len2 && str[i+j]==s[j])
+						j++;
 
+					if(j==len2)
+						return i;
 
+			}
+			return NEG_INF;
+
+		}
+		int indexOf(char *s,int x)
+		{
+			int i,len=length(),len2=length(s);
+			for(i=x;i<len;i++)
+			{
+					int j=0;
+					while(j<len2 && str[i+j]==s[j])
+						j++;
+
+					if(j==len2)
+						return i;
+
+			}
+			return NEG_INF;
+
+		}
 
 };
-
+//end
 
 void main()
 {
@@ -364,6 +454,7 @@ void main()
 
     String s1;
     String s2("ABCDEFGHI");
+    String s3("QWERty");
 
 
     s1.setstring();
@@ -405,8 +496,8 @@ void main()
     sub2.getstring();
 
 
-    cout << "\nAppending s2 to s1..." << endl;
-    s1.append(s2);
+    cout << "\nAppending s3 to s1";
+    s1.append(s3);
     s1.getstring();
 
 
@@ -416,7 +507,7 @@ void main()
     s1.append(num);
     s1.getstring();
 
-
+/*
     float floatnum;
     int radixPoint;
     cout << "\nEnter float number to append: ";
@@ -425,11 +516,50 @@ void main()
     cin >> radixPoint;
     s1.append(floatnum, radixPoint);
     s1.getstring();
-
+  */
     cout << "\nEnter index to insert s2 into s1: ";
     cin >> index;
     s1.insert(s2, index);
     s1.getstring();
+
+
+    char key;
+    cout<<"\nEnter the char u want to search";
+    cin>>key;
+
+    index = s1.indexOf(key);
+    if(index==NEG_INF)
+	cout<<"\nNOt found";
+    else
+	cout<<"\nFound";
+
+    cout<<"\nEnter the index from which u want to start searching ";
+    cin>>index;
+    index = s1.indexOf(key,index);
+    if(index==NEG_INF)
+	cout<<"\nNOt found";
+    else
+	cout<<"\nFound";
+
+    char s[100];
+    cout<<"\nEnter the string u want to search ";
+    cin>>s;
+    int value= s1.indexOf(s);
+    if(value!=NEG_INF)
+	cout<<"\nThe starting index of "<<s<<" is "<<value;
+    else
+	cout<<"\nThe string( "<<s<<") is not found";
+
+
+    cout<<"\nEnter the index ";
+    cin>>index;
+    value= s1.indexOf(s,index);
+    if(value!=NEG_INF)
+	cout<<"\nThe starting index of "<<s<<" is "<<value;
+    else
+	cout<<"\nThe string( "<<s<<") is not found";
+
+
 
     getch();
 }
