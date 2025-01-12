@@ -11,4 +11,7 @@ int main()
 	res = num1 + num2;
 
 	cout<<"\nSum of "<<num1<<" and "<<num2<<" is "<<res;
+
+	return 0;
+
 }

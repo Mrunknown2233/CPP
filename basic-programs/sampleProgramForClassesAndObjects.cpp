@@ -34,4 +34,7 @@ int main()
 	s1.getData();
 	s2.getData();
 	s3.getData();
+
+	return 0;
+
 }
