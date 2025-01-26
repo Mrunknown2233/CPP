@@ -65,6 +65,8 @@ int main()
 	s1.display();
 	s2.display();
 	s3.display();
+
+	return 0;
 }
 
 

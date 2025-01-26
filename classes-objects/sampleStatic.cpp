@@ -31,5 +31,5 @@ int main()
 	s3.display();
 
 	cout<<"\nStatic Count in main : "<<Sample::staticCount;
-
+return 0;
 }

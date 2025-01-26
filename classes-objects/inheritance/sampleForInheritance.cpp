@@ -66,6 +66,8 @@ int main()
 	bw.displayWeight();
 
 	cout<<"\nVolume of bw : "<<bw.volume();
+
+	return 0;
 }
 
 

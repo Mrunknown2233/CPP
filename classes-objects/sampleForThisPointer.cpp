@@ -43,6 +43,6 @@ int main()
 	cout<<"\nEldest amoung the 2 persons is : ";
 	p3 = p1.findElder(p2);
 	p3.display();
-
+return 0;
 }
 
