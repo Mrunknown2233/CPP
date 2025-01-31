@@ -1,0 +1,4 @@
+NOTE : 
+	If a base class has only parameterized constructor it is mandatory for derived class to accept the parameters
+	and pass it to the base class constructor using a special syntax
+
