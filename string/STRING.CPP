@@ -22,8 +22,6 @@ class String
 				cout<<"\nMemory Insufficeint ";
 				exit(10);
 			}
-
-
 				//copying the older str in new one
 				int i = 0;
 
@@ -36,8 +34,6 @@ class String
 				totalSize=newsize;
 				cout<<"\nBhai resize hogaya ";
 				return this;
-
-
 		}
 		int  length(char *str)
 		{
